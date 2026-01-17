@@ -132,32 +132,22 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/api/positions
-
 ###
-
 GET http://localhost:3000/api/positions/1
-
 ###
-
 POST http://localhost:3000/api/positions
 Content-Type: application/json
-
 {
   "Title": "System Analyst",
   "Description": "Analyze system requirements",
   "Level": "Senior"
 }
-
 ###
-
 PUT http://localhost:3000/api/positions/1
 Content-Type: application/json
-
 {
   "Title": "Senior System Analyst",
   "Level": "Lead"
 }
-
 ###
-
 DELETE http://localhost:3000/api/positions/1
