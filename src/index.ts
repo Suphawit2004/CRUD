@@ -3,14 +3,14 @@ import { Hono } from 'hono'
 import  userRoutes  from './users/index.js'
 import  roleRoutes  from './roles/index.js' 
 import  productRoutes  from './products/index.js'
-
-import db from './db/index.js'
+import positionRoutes from './Position/index.js' 
 
 const app = new Hono()
 
 app.route('/api/users',userRoutes)
 app.route('/api/roles',roleRoutes)
 app.route('/api/products',productRoutes)
+app.route('/api/positions',positionRoutes)
 
 serve({
   fetch: app.fetch,
@@ -19,4 +19,4 @@ serve({
   console.log(`Server is running on http://localhost:${info.port}`)
 })
 
-
+export default app

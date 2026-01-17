@@ -1,4 +1,3 @@
-
 ###
 GET http://localhost:3000/api/users
 ###
@@ -113,3 +112,32 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3000/api/roles/6
+
+###
+
+GET http://localhost:3000/api/positions
+
+###
+
+POST http://localhost:3000/api/positions
+Content-Type: application/json
+
+{
+  "Title": "Backend Developer",
+  "Description": "Develop RESTful APIs",
+  "Level": "Junior"
+}
+
+###
+
+POST http://localhost:3000/api/positions
+Content-Type: application/json
+
+{
+  "Title": "Project Manager",
+  "Level": "Senior"
+}
+
+###
+
+DELETE http://localhost:3000/api/positions/1
