@@ -23,7 +23,7 @@ let positions: Position[] = [
 ];
 
 const createPositionSchema = z.object({
-  Title: z.string() .optional(),
+  Title: z.string().optional(),
   Description: z.string().optional(),
   Level: z.string().optional(),
 })
@@ -39,7 +39,7 @@ positionRoutes.get('/:id', (c) => {
   if (!position) {
       return c.json({ message: 'Position not found' }, 404);
   }
-  return c.json({ data: position }); // ปรับ format ให้เหมือน get all เล็กน้อย
+  return c.json({ data: position });
 });
 
 positionRoutes.post('/',    
@@ -50,15 +50,39 @@ positionRoutes.post('/',
 
     const newPosition: Position = {
         PositionID: newId,
-        Title: body.Title,
+        Title: body.Title || "Untitled",
         Description: body.Description || "",
-        Level: body.Level,
+        Level: body.Level || "N/A",
         CreatedDate: new Date().toISOString(),
     }
 
     positions.push(newPosition);
     return c.json({ message: 'Position created', data: newPosition }, 201)
 })
+
+positionRoutes.put('/:id', 
+    zValidator('json', createPositionSchema),
+    async (c) => {
+    const id = Number(c.req.param('id'));
+    const body = await c.req.json();
+    
+    const index = positions.findIndex(p => p.PositionID === id);
+
+    if (index === -1) {
+        return c.json({ message: 'Position not found' }, 404);
+    }
+
+    const updatedPosition: Position = {
+        ...positions[index],
+        Title: body.Title || positions[index].Title,
+        Description: body.Description !== undefined ? body.Description : positions[index].Description,
+        Level: body.Level || positions[index].Level
+    };
+
+    positions[index] = updatedPosition;
+
+    return c.json({ message: 'Position updated', data: updatedPosition });
+});
 
 positionRoutes.delete('/:id', (c) => {
   const id = Number(c.req.param('id'))
